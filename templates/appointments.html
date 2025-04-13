@@ -1,119 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Appointments - XYZ Hospital</title>
-    <link rel="stylesheet" href="static/styles.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
 
-<body>
-
+  <body>
     <!-- Header Section -->
     <header>
-        <div class="container">
-            <img src="static/hospital-logo.png" alt="Hospital Logo" class="logo">
-            <h1>Book Your Appointment</h1>
-            <p>Select your preferred time and doctor for a consultation.</p>
-        </div>
+      <div class="container">
+        <img
+          src="{{ url_for('static', filename='hospital-logo.png') }}"
+          alt="Hospital Logo"
+          class="logo"
+        />
+        <h1>Book Your Appointment</h1>
+        <p>Select your preferred time and doctor for a consultation.</p>
+      </div>
     </header>
 
     <!-- Navigation Bar -->
     <nav>
-        <div class="container">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="appointments">Appointments</a></li>
-                <li><a href="patients">Patients</a></li>
-                <li><a href="doctors">Doctors</a></li>
-                <li><a href="contact">Contact Us</a></li>
-            </ul>
-        </div>
+      <div class="container">
+        <ul>
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+          <li><a href="{{ url_for('patients') }}">Patients</a></li>
+          <li><a href="{{ url_for('doctors') }}">Doctors</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+        </ul>
+      </div>
     </nav>
 
     <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
     <div class="flash-messages">
-        {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
     </div>
-    {% endif %}
-    {% endwith %}
+    {% endif %} {% endwith %}
 
     <!-- Appointment Form Section -->
     <section class="section-container">
-        <div class="section-header">
-            <h2>Appointment Booking</h2>
-            <p>Please fill in the details below to schedule your appointment.</p>
-        </div>
+      <div class="section-header">
+        <h2>Appointment Booking</h2>
+        <p>Please fill in the details below to schedule your appointment.</p>
+      </div>
 
-        <form action="/appointments" method="POST" class="appointment-form">
-            <label for="patient_id">Select Patient</label>
-            <select id="patient_id" name="patient_id" required>
-                {% for patient in patients %}
-                <option value="{{ patient.patient_id }}">{{ patient.name }}</option>
-                {% endfor %}
-            </select>
+      <form
+        action="{{ url_for('appointments') }}"
+        method="POST"
+        class="appointment-form"
+      >
+        <label for="patient_id">Select Patient</label>
+        <select id="patient_id" name="patient_id" required>
+          {% for patient in patients %}
+          <option value="{{ patient.patient_id }}">{{ patient.name }}</option>
+          {% endfor %}
+        </select>
 
-            <label for="doctor_id">Select Doctor</label>
-            <select id="doctor_id" name="doctor_id" required>
-                {% for doctor in doctors %}
-                <option value="{{ doctor.doctor_id }}">Dr. {{ doctor.name }} ({{ doctor.specialization }})</option>
-                {% endfor %}
-            </select>
+        <label for="doctor_id">Select Doctor</label>
+        <select id="doctor_id" name="doctor_id" required>
+          {% for doctor in doctors %}
+          <option value="{{ doctor.doctor_id }}">
+            Dr. {{ doctor.name }} ({{ doctor.specialization }})
+          </option>
+          {% endfor %}
+        </select>
 
-            <label for="date">Appointment Date</label>
-            <input type="date" id="date" name="date" required>
+        <label for="date">Appointment Date</label>
+        <input type="date" id="date" name="date" required />
 
-            <label for="time">Appointment Time</label>
-            <input type="time" id="time" name="time" required>
+        <label for="time">Appointment Time</label>
+        <input type="time" id="time" name="time" required />
 
-            <button type="submit" class="cta-button">Book Appointment</button>
-        </form>
+        <button type="submit" class="cta-button">Book Appointment</button>
+      </form>
     </section>
 
     <!-- Existing Appointments Section -->
     <section class="section-container">
-        <div class="section-header">
-            <h2>Upcoming Appointments</h2>
-            <p>List of currently scheduled appointments.</p>
-        </div>
+      <div class="section-header">
+        <h2>Upcoming Appointments</h2>
+        <p>List of currently scheduled appointments.</p>
+      </div>
 
-        <table class="appointments-table">
-            <thead>
-                <tr>
-                    <th>Patient</th>
-                    <th>Doctor</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for appointment in appointments %}
-                <tr>
-                    <td>{{ appointment.patient_name }}</td>
-                    <td>{{ appointment.doctor_name }}</td>
-                    <td>{{ appointment.date.strftime('%Y-%m-%d') if appointment.date }}</td>
-                    <td>{{ appointment.time.strftime('%H:%M') if appointment.time }}</td>
-                    <td>{{ appointment.status }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+      <table class="appointments-table">
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appointment in appointments %}
+          <tr>
+            <td>{{ appointment.patient_name }}</td>
+            <td>{{ appointment.doctor_name }}</td>
+            <td>{{ appointment.date | format_date }}</td>
+            <td>{{ appointment.time | format_time }}</td>
+            <td>{{ appointment.status }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </section>
 
     <!-- Footer Section -->
     <footer>
-        <div class="container">
-            <p>&copy; 2025 XYZ Hospital Management System | All Rights Reserved</p>
-        </div>
+      <div class="container">
+        <p>&copy; 2025 XYZ Hospital Management System | All Rights Reserved</p>
+      </div>
     </footer>
 
-    <script src="static/scripts/app.js"></script>
-</body>
-
+    <script src="{{ url_for('static', filename='scripts/app.js') }}"></script>
+  </body>
 </html>

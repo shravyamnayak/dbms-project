@@ -1,16 +1,42 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
 from flask_cors import CORS
-import mysql.connector
 from db import get_db_connection
+import datetime
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key_here"
 CORS(app)
 
+# Jinja filter to format date objects
+
+
+@app.template_filter('format_date')
+def format_date(date):
+    """Format a date object to YYYY-MM-DD string."""
+    if date:
+        return date.strftime('%Y-%m-%d')
+    return ""
+
+# Jinja filter to format time objects
+
+
+@app.template_filter('format_time')
+def format_time(time):
+    """Format a time object to HH:MM string."""
+    if isinstance(time, datetime.time):
+        return time.strftime('%H:%M')
+    elif isinstance(time, datetime.timedelta):
+        # Convert timedelta to a formatted string (HH:MM)
+        total_seconds = int(time.total_seconds())
+        hours = total_seconds // 3600
+        minutes = (total_seconds % 3600) // 60
+        return f"{hours:02d}:{minutes:02d}"
+    return ""
+
 
 def get_all_doctors():
     conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()  # Ensure cursor returns dictionaries
     cursor.execute("SELECT * FROM Doctor")
     doctors = cursor.fetchall()
     cursor.close()
@@ -20,7 +46,7 @@ def get_all_doctors():
 
 def get_all_patients():
     conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()  # Ensure cursor returns dictionaries
     cursor.execute("SELECT * FROM Patient")
     patients = cursor.fetchall()
     cursor.close()
@@ -30,13 +56,14 @@ def get_all_patients():
 
 def get_appointments():
     conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute("""
+    cursor = conn.cursor()  # Ensure cursor returns dictionaries
+    query = """
         SELECT a.*, p.name as patient_name, d.name as doctor_name 
         FROM Appointment a
         JOIN Patient p ON a.patient_id = p.patient_id
         JOIN Doctor d ON a.doctor_id = d.doctor_id
-    """)
+    """
+    cursor.execute(query)
     appointments = cursor.fetchall()
     cursor.close()
     conn.close()
@@ -66,14 +93,18 @@ def appointments():
             conn = get_db_connection()
             cursor = conn.cursor()
 
-            cursor.execute("SELECT MAX(appointment_id) FROM Appointment")
-            max_id = cursor.fetchone()[0]
-            new_id = 1 if max_id is None else max_id + 1
-
             cursor.execute(
-                "INSERT INTO Appointment (appointment_id, patient_id, doctor_id, date, time, status) VALUES (%s, %s, %s, %s, %s, %s)",
-                (new_id, patient_id, doctor_id, date, time, "Scheduled")
-            )
+                "SELECT MAX(appointment_id) AS max_id FROM Appointment")
+            result = cursor.fetchone()
+            max_id = result['max_id'] if result and result['max_id'] is not None else 0
+            new_id = max_id + 1
+
+            insert_query = """
+                INSERT INTO Appointment (appointment_id, patient_id, doctor_id, date, time, status)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute(insert_query, (new_id, patient_id,
+                           doctor_id, date, time, "Scheduled"))
 
             conn.commit()
             cursor.close()
@@ -110,6 +141,9 @@ def contact():
         name = request.form.get('name')
         email = request.form.get('email')
         message = request.form.get('message')
+
+        # Here you would typically save the contact form data or send an email
+        # But for now, we'll just flash a success message
 
         flash("Thank you for your message! We'll get back to you soon.", "success")
         return redirect(url_for('contact'))
