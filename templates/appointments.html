@@ -38,14 +38,15 @@
     </nav>
 
     <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %}
-    <div class="flash-messages">
-      {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
-      {% endfor %}
-    </div>
-    {% endif %} {% endwith %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
     <!-- Appointment Form Section -->
     <section class="section-container">
@@ -55,35 +56,39 @@
       </div>
 
       <form
-        action="{{ url_for('appointments') }}"
-        method="POST"
-        class="appointment-form"
-      >
-        <label for="patient_id">Select Patient</label>
-        <select id="patient_id" name="patient_id" required>
-          {% for patient in patients %}
-          <option value="{{ patient.patient_id }}">{{ patient.name }}</option>
-          {% endfor %}
-        </select>
-
-        <label for="doctor_id">Select Doctor</label>
-        <select id="doctor_id" name="doctor_id" required>
-          {% for doctor in doctors %}
-          <option value="{{ doctor.doctor_id }}">
-            Dr. {{ doctor.name }} ({{ doctor.specialization }})
-          </option>
-          {% endfor %}
-        </select>
-
-        <label for="date">Appointment Date</label>
-        <input type="date" id="date" name="date" required />
-
-        <label for="time">Appointment Time</label>
-        <input type="time" id="time" name="time" required />
-
-        <button type="submit" class="cta-button">Book Appointment</button>
-      </form>
-    </section>
+      action="{{ url_for('appointments') }}"
+      method="POST"
+      class="appointment-form"
+    >
+      <label for="patient_id">Select Patient</label>
+      <select id="patient_id" name="patient_id" required>
+        {% for patient in patients %}
+        <option value="{{ patient.patient_id }}">{{ patient.name }}</option>
+        {% endfor %}
+      </select>
+    
+      <label for="doctor_id">Select Doctor</label>
+      <select id="doctor_id" name="doctor_id" required>
+        {% for doctor in doctors %}
+        <option value="{{ doctor.doctor_id }}">
+          Dr. {{ doctor.name }} ({{ doctor.specialization }})
+        </option>
+        {% endfor %}
+      </select>
+    
+      <label for="date">Appointment Date</label>
+      <input type="date" id="date" name="date" required />
+    
+      <label for="time">Appointment Time</label>
+      <input type="time" id="time" name="time" required />
+    
+      <!-- Add Email Input -->
+      <label for="email">Patient Email</label>
+      <input type="email" id="email" name="email" required />
+    
+      <button type="submit" class="cta-button">Book Appointment</button>
+    </form>
+    
 
     <!-- Existing Appointments Section -->
     <section class="section-container">
