@@ -20,3 +20,18 @@ def get_db_connection():
         database='doctors_appointment',
         cursorclass=DictCursor
     )
+
+import pymysql
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+def get_db_connection():
+    return pymysql.connect(
+        host="localhost",
+        user="root",
+        password=os.environ["MYSQL_PASSWORD"],
+        db="doctors_appointment",
+        cursorclass=pymysql.cursors.DictCursor
+    )

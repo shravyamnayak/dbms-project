@@ -4,19 +4,21 @@ from flask_cors import CORS
 from flask_mail import Mail, Message
 from db import get_db_connection
 import datetime
+from dotenv import load_dotenv
+from config import Config  # Import the Config class
 
+# Load environment variables from .env
+load_dotenv()
+
+# Initialize Flask app
 app = Flask(__name__)
-app.secret_key = os.environ.get("FLASK_SECRET_KEY", "default_secret_key")
+
+# Use Config class to load all app settings
+app.config.from_object(Config)  # Load settings from config.py
+
 CORS(app)
 
-# ✅ Flask-Mail Configuration (Use environment variables for credentials)
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get("MAIL_USERNAME", "shravyamnayak@gmail.com")
-app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASSWORD", "ynlbbubcmkfbjebp")  # Use Gmail App Password
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_USERNAME", "shravyamnayak@gmail.com")
-
+# Initialize Flask-Mail with app configuration
 mail = Mail(app)
 
 # ✅ Jinja filter to format date objects
