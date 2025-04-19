@@ -8,27 +8,28 @@
 </head>
 <body>
 
-    <!-- Header Section -->
-    <header>
-        <div class="container">
-            <img src="{{ url_for('static', filename='hospital-logo.png') }}" alt="Hospital Logo" class="logo">
-            <h1>Contact XYZ Hospital</h1>
-            <p>Get in touch with us for inquiries, feedback, or assistance.</p>
-        </div>
-    </header>
-
     <!-- Navigation Bar -->
     <nav>
-        <div class="container">
-            <ul>
+        <div class="container nav-container">
+            <div class="nav-left">
+                <img src="static/hospital-logo.png" alt="MediSchedule Logo" class="nav-logo" />
+                <h1 class="site-title">MediSchedule</h1>
+            </div>
+            <ul class="nav-menu">
                 <li><a href="/">Home</a></li>
-                <li><a href="/appointments">Appointments</a></li>
-                <li><a href="/patients">Patients</a></li>
-                <li><a href="/doctors">Doctors</a></li>
-                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="appointments">Appointments</a></li>
+                <li><a href="patients">Patients</a></li>
+                <li><a href="doctors">Doctors</a></li>
+                <li><a href="contact">Contact Us</a></li>
             </ul>
+            <div class="nav-right">
+                <a href="login" class="nav-button">Login</a>
+                <a href="signup" class="nav-button">Sign Up</a>
+            </div>
         </div>
     </nav>
+     
+   
 
     <!-- Flash Messages - Moved here, right after the Navigation Bar -->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -64,11 +65,7 @@
     </section>
 
     <!-- Footer Section -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 XYZ Hospital Management System | All Rights Reserved</p>
-        </div>
-    </footer>
+    {% include 'footer.html' %}
 
     <script src="app.js"></script>
 </body>
