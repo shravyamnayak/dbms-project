@@ -11,28 +11,42 @@
 <body>
 
     <!-- Navigation Bar -->
-    <nav>
-        <div class="container nav-container">
-            <div class="nav-left">
-                <img src="static/hospital-logo.png" alt="MediSchedule Logo" class="nav-logo" />
-                <h1 class="site-title">MediSchedule</h1>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="/">Home</a></li>
-                <li><a href="appointments">Appointments</a></li>
-                <li><a href="patients">Patients</a></li>
-                <li><a href="doctors">Doctors</a></li>
-                <li><a href="contact">Contact Us</a></li>
-            </ul>
-            <div class="nav-right">
-                <a href="login" class="nav-button">Login</a>
-                <a href="signup" class="nav-button">Sign Up</a>
-            </div>
-        </div>
-    </nav>
-      
-   
-
+<nav>
+    <div class="container nav-container">
+      <div class="nav-left">
+        <img src="{{ url_for('static', filename='hospital-logo.png') }}" alt="MediSchedule Logo" class="nav-logo" />
+        <h1 class="site-title">MediSchedule</h1>
+      </div>
+  
+      <!-- Navigation Menu -->
+      <ul class="nav-menu">
+        <li><a href="/">Home</a></li>
+  
+        <!-- Check if user is logged in -->
+        {% if session.get('user_id') %}
+          <!-- Display Patients link for admin and doctor -->
+          {% if session.get('role') in ['admin', 'doctor'] %}
+            <li><a href="{{ url_for('patients') }}">Patients</a></li>
+          {% endif %}
+          <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+        {% endif %}
+        
+        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+      </ul>
+  
+      <!-- User Authentication and Welcome Message -->
+      <div class="nav-right">
+        {% if session.get('user_id') %}
+          <span class="welcome-text">Welcome, {{ session.get('name') }}</span>
+          <a href="{{ url_for('logout') }}" class="nav-button">Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="nav-button">Login</a>
+          <a href="{{ url_for('signup') }}" class="nav-button">Sign Up</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  
     <!-- Patient Dashboard Section -->
     <section class="section-container">
         <div class="section-header">
@@ -65,5 +79,4 @@
 
     <script src="static/scripts/app.js"></script>
 </body>
-
 </html>

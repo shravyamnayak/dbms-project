@@ -4,33 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Appointments - XYZ Hospital</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   </head>
   <body>
 
+    
     <!-- Navigation Bar -->
-    <nav>
-      <div class="container nav-container">
-          <div class="nav-left">
-              <img src="static/hospital-logo.png" alt="MediSchedule Logo" class="nav-logo" />
-              <h1 class="site-title">MediSchedule</h1>
-          </div>
-          <ul class="nav-menu">
-              <li><a href="/">Home</a></li>
-              <li><a href="appointments">Appointments</a></li>
-              <li><a href="patients">Patients</a></li>
-              <li><a href="doctors">Doctors</a></li>
-              <li><a href="contact">Contact Us</a></li>
-          </ul>
-          <div class="nav-right">
-              <a href="login" class="nav-button">Login</a>
-              <a href="signup" class="nav-button">Sign Up</a>
-          </div>
-      </div>
-  </nav>
+<nav>
+  <div class="container nav-container">
+    <div class="nav-left">
+      <img src="{{ url_for('static', filename='hospital-logo.png') }}" alt="MediSchedule Logo" class="nav-logo" />
+      <h1 class="site-title">MediSchedule</h1>
+    </div>
+
+    <!-- Navigation Menu -->
+    <ul class="nav-menu">
+      <li><a href="/">Home</a></li>
+
+      <!-- Check if user is logged in -->
+      {% if session.get('user_id') %}
+        <!-- Display Patients link for admin and doctor -->
+        {% if session.get('role') in ['admin', 'doctor'] %}
+          <li><a href="{{ url_for('patients') }}">Patients</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+      {% endif %}
+      
+      <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+    </ul>
+
+    <!-- User Authentication and Welcome Message -->
+    <div class="nav-right">
+      {% if session.get('user_id') %}
+        <span class="welcome-text">Welcome, {{ session.get('name') }}</span>
+        <a href="{{ url_for('logout') }}" class="nav-button">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="nav-button">Login</a>
+        <a href="{{ url_for('signup') }}" class="nav-button">Sign Up</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
 
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -50,40 +65,33 @@
         <p>Please fill in the details below to schedule your appointment.</p>
       </div>
 
-      <form
-      action="{{ url_for('appointments') }}"
-      method="POST"
-      class="appointment-form"
-    >
-      <label for="patient_id">Select Patient</label>
-      <select id="patient_id" name="patient_id" required>
-        {% for patient in patients %}
-        <option value="{{ patient.patient_id }}">{{ patient.name }}</option>
-        {% endfor %}
-      </select>
-    
-      <label for="doctor_id">Select Doctor</label>
-      <select id="doctor_id" name="doctor_id" required>
-        {% for doctor in doctors %}
-        <option value="{{ doctor.doctor_id }}">
-          Dr. {{ doctor.name }} ({{ doctor.specialization }})
-        </option>
-        {% endfor %}
-      </select>
-    
-      <label for="date">Appointment Date</label>
-      <input type="date" id="date" name="date" required />
-    
-      <label for="time">Appointment Time</label>
-      <input type="time" id="time" name="time" required />
-    
-      <!-- Add Email Input -->
-      <label for="email">Patient Email</label>
-      <input type="email" id="email" name="email" required />
-    
-      <button type="submit" class="cta-button">Book Appointment</button>
-    </form>
-    
+      <form action="{{ url_for('appointments') }}" method="POST" class="appointment-form">
+        <label for="patient_id">Select Patient</label>
+        <select id="patient_id" name="patient_id" required>
+          {% for patient in patients %}
+            <option value="{{ patient.patient_id }}">{{ patient.name }}</option>
+          {% endfor %}
+        </select>
+
+        <label for="doctor_id">Select Doctor</label>
+        <select id="doctor_id" name="doctor_id" required>
+          {% for doctor in doctors %}
+            <option value="{{ doctor.doctor_id }}">Dr. {{ doctor.name }} ({{ doctor.specialization }})</option>
+          {% endfor %}
+        </select>
+
+        <label for="date">Appointment Date</label>
+        <input type="date" id="date" name="date" required />
+
+        <label for="time">Appointment Time</label>
+        <input type="time" id="time" name="time" required />
+
+        <label for="email">Patient Email</label>
+        <input type="email" id="email" name="email" required />
+
+        <button type="submit" class="cta-button">Book Appointment</button>
+      </form>
+    </section>
 
     <!-- Existing Appointments Section -->
     <section class="section-container">
@@ -100,6 +108,7 @@
             <th>Date</th>
             <th>Time</th>
             <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -109,7 +118,33 @@
             <td>{{ appointment.doctor_name }}</td>
             <td>{{ appointment.date | format_date }}</td>
             <td>{{ appointment.time | format_time }}</td>
-            <td>{{ appointment.status }}</td>
+
+            <!-- Appointment Status Dropdown -->
+            <td>
+              <form action="{{ url_for('mark_status', appointment_id=appointment.appointment_id) }}" method="POST">
+                <select name="status" onchange="this.form.submit()">
+                  <option value="Pending" {% if appointment.status == 'Pending' %}selected{% endif %}>Pending</option>
+                  <option value="Completed" {% if appointment.status == 'Completed' %}selected{% endif %}>Completed</option>
+                  <option value="Cancelled" {% if appointment.status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+                  <option value="Missed" {% if appointment.status == 'Missed' %}selected{% endif %}>Missed</option>
+                </select>
+              </form>
+            </td>
+
+            <!-- Actions: Reschedule + Cancel -->
+            <td>
+              <!-- Reschedule Form -->
+              <form action="{{ url_for('reschedule_appointment', appointment_id=appointment.appointment_id) }}" method="POST" class="inline-form">
+                <input type="date" name="new_date" required />
+                <input type="time" name="new_time" required />
+                <button type="submit" class="action-btn reschedule">Reschedule</button>
+              </form>
+
+              <!-- Cancel Button -->
+              <form action="{{ url_for('cancel_appointment', appointment_id=appointment.appointment_id) }}" method="POST" class="inline-form">
+                <button type="submit" class="action-btn cancel">Cancel</button>
+              </form>
+            </td>
           </tr>
           {% endfor %}
         </tbody>

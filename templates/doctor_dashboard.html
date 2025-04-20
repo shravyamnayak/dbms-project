@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome, Dr. {{ username }}!</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('appointments') }}">Manage Appointments</a></li>
+                <li><a href="{{ url_for('patients') }}">View Patients</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Doctor Dashboard</h2>
+        <section>
+            <h3>Your Appointments</h3>
+            <p>Manage and view your appointments with patients.</p>
+        </section>
+
+        <section>
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+                <li><a href="{{ url_for('patients') }}">Patients</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Doctor Appointment System</p>
+    </footer>
+</body>
+</html>

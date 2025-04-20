@@ -1,37 +1,17 @@
-# def get_db_connection():
-#     return mysql.connector.connect(
-#         host="localhost",
-#         port=3306,
-#         user="admin",
-#         password="asdfghjkl",
-#         database="doctors_appointment"
-#     )
-
-import pymysql
-from pymysql.cursors import DictCursor
-
-
-def get_db_connection():
-    return pymysql.connect(
-        host='localhost',
-        port=3306,
-        user='admin',
-        password='asdfghjkl',
-        database='doctors_appointment',
-        cursorclass=DictCursor
-    )
-
 import pymysql
 import os
 from dotenv import load_dotenv
+from pymysql.cursors import DictCursor
 
+# Load environment variables from .env
 load_dotenv()
 
 def get_db_connection():
     return pymysql.connect(
         host="localhost",
-        user="root",
-        password=os.environ["MYSQL_PASSWORD"],
-        db="doctors_appointment",
-        cursorclass=pymysql.cursors.DictCursor
+        port=3306,
+        user="root",  # or "admin" if you're using Docker or a different setup
+        password=os.environ.get("MYSQL_PASSWORD", ""),  # fallback to "" if env var is not set
+        database="doctors_appointment",
+        cursorclass=DictCursor
     )

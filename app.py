@@ -1,34 +1,36 @@
 import os
-from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
+import datetime
+from flask import Flask, jsonify, render_template, request, redirect, url_for, flash, session
 from flask_cors import CORS
 from flask_mail import Mail, Message
+from werkzeug.security import generate_password_hash, check_password_hash
 from db import get_db_connection
-import datetime
 from dotenv import load_dotenv
-from config import Config  # Import the Config class
+from config import Config
+import pymysql
 
-# Load environment variables from .env
+# Import the login_required decorator
+from utils import login_required
+
+# Load environment variables
 load_dotenv()
 
 # Initialize Flask app
-app = Flask(__name__)
-
-# Use Config class to load all app settings
-app.config.from_object(Config)  # Load settings from config.py
-
+app = Flask(__name__, template_folder='templates', static_folder='static')
+app.config.from_object(Config)
 CORS(app)
-
-# Initialize Flask-Mail with app configuration
 mail = Mail(app)
 
-# ✅ Jinja filter to format date objects
+# Session security
+app.permanent_session_lifetime = datetime.timedelta(days=1)
+
+# ✅ Jinja Filters
 @app.template_filter('format_date')
 def format_date(date):
     if date:
         return date.strftime('%Y-%m-%d')
     return ""
 
-# ✅ Jinja filter to format time objects
 @app.template_filter('format_time')
 def format_time(time):
     if isinstance(time, datetime.time):
@@ -40,17 +42,18 @@ def format_time(time):
         return f"{hours:02d}:{minutes:02d}"
     return ""
 
+# ✅ Utility Functions
 def get_all_doctors():
     conn = get_db_connection()
     if not conn:
         flash("Failed to connect to the database", "error")
         return []
     try:
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
         cursor.execute("SELECT * FROM Doctor")
         doctors = cursor.fetchall()
-        cursor.close()
     finally:
+        cursor.close()
         conn.close()
     return doctors
 
@@ -60,11 +63,11 @@ def get_all_patients():
         flash("Failed to connect to the database", "error")
         return []
     try:
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
         cursor.execute("SELECT * FROM Patient")
         patients = cursor.fetchall()
-        cursor.close()
     finally:
+        cursor.close()
         conn.close()
     return patients
 
@@ -74,7 +77,7 @@ def get_appointments():
         flash("Failed to connect to the database", "error")
         return []
     try:
-        cursor = conn.cursor()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
         query = """
             SELECT a.*, p.name as patient_name, d.name as doctor_name 
             FROM Appointment a
@@ -83,142 +86,212 @@ def get_appointments():
         """
         cursor.execute(query)
         appointments = cursor.fetchall()
-        cursor.close()
     finally:
+        cursor.close()
         conn.close()
     return appointments
 
-@app.route("/", methods=['GET'])
+# ✅ Routes
+@app.route("/")
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route("/doctors", methods=["GET"])
+@app.route("/doctors")
+@login_required(roles=['admin', 'doctor', 'patient'])
 def doctors():
-    doctors_list = get_all_doctors()
-    return render_template("doctors.html", doctors=doctors_list)
+    return render_template("doctors.html", doctors=get_all_doctors())
+
+@app.route("/patients")
+@login_required(roles=['admin', 'doctor'])
+def patients():
+    return render_template("patients.html", patients=get_all_patients())
 
 @app.route("/appointments", methods=["GET", "POST"])
+@login_required(roles=['admin', 'doctor', 'patient'])
 def appointments():
     if request.method == "POST":
         try:
-            # ✅ Step 1: Collect form data
             patient_id = int(request.form['patient_id'])
             doctor_id = int(request.form['doctor_id'])
             date = request.form['date']
-            time = request.form['time']
+            time_str = request.form['time']
             patient_email = request.form['email']
 
-            # ✅ Step 2: Insert into DB
-            conn = get_db_connection()
-            if not conn:
-                flash("Failed to connect to the database", "error")
-                return redirect(url_for('appointments'))
+            if len(time_str.split(':')) == 2:
+                time_obj = datetime.datetime.strptime(time_str, "%H:%M").time()
+            else:
+                time_obj = datetime.datetime.strptime(time_str, "%H:%M:%S").time()
 
-            cursor = conn.cursor()
+            conn = get_db_connection()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
 
             cursor.execute("SELECT MAX(appointment_id) AS max_id FROM Appointment")
             result = cursor.fetchone()
-            max_id = result['max_id'] if result and result['max_id'] is not None else 0
-            new_id = max_id + 1
+            new_id = (result['max_id'] or 0) + 1
 
-            insert_query = """
-                INSERT INTO Appointment (appointment_id, patient_id, doctor_id, date, time, status)
-                VALUES (%s, %s, %s, %s, %s, %s)
-            """
-            cursor.execute(insert_query, (new_id, patient_id, doctor_id, date, time, "Scheduled"))
+            cursor.execute(
+                "INSERT INTO Appointment (appointment_id, patient_id, doctor_id, date, time, status) VALUES (%s, %s, %s, %s, %s, %s)",
+                (new_id, patient_id, doctor_id, date, time_obj, "Scheduled")
+            )
             conn.commit()
 
-            # ✅ Step 3: Fetch doctor’s name
             cursor.execute("SELECT name FROM Doctor WHERE doctor_id = %s", (doctor_id,))
-            doctor_row = cursor.fetchone()
-            doctor_name = doctor_row['name'] if doctor_row else "the assigned doctor"
+            doctor_name = cursor.fetchone()['name']
 
-            cursor.close()
-            conn.close()
-
-            # ✅ Step 4: Send confirmation email
-            msg = Message(
+            mail.send(Message(
                 subject="Appointment Confirmation",
                 recipients=[patient_email],
-                body=f"""Hello,
+                body=f"Hello,\n\nYour appointment with Dr. {doctor_name} is scheduled on {date} at {time_str}.\n\nThank you!"
+            ))
 
-Your appointment with Dr. {doctor_name} has been successfully scheduled.
-
-📅 Date: {date}
-⏰ Time: {time}
-
-Thank you for choosing XYZ Hospital!
-"""
-            )
-            mail.send(msg)
-
-            # ✅ Step 5: Flash message
-            flash("Appointment scheduled successfully and confirmation email sent!", "success")
-            return redirect(url_for('appointments'))
-
+            flash("Appointment scheduled and confirmation email sent!", "success")
         except Exception as e:
-            flash(f"Error scheduling appointment: {str(e)}", "error")
-            return redirect(url_for('appointments'))
+            flash(f"Error: {e}", "error")
+        finally:
+            cursor.close()
+            conn.close()
+        return redirect(url_for('appointments'))
 
-    # ✅ GET: Load data
-    doctors_list = get_all_doctors()
-    patients_list = get_all_patients()
-    appointments_list = get_appointments()
-    return render_template("appointments.html", doctors=doctors_list, patients=patients_list, appointments=appointments_list)
+    return render_template("appointments.html",
+                           doctors=get_all_doctors(),
+                           patients=get_all_patients(),
+                           appointments=get_appointments())
 
-@app.route("/patients", methods=["GET"])
-def patients():
-    patients_list = get_all_patients()
-    return render_template("patients.html", patients=patients_list)
+@app.route("/reschedule/<int:appointment_id>", methods=["POST"])
+@login_required(roles=['admin', 'doctor'])
+def reschedule_appointment(appointment_id):
+    new_date = request.form['new_date']
+    new_time = request.form['new_time']
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Appointment SET date = %s, time = %s, status = %s WHERE appointment_id = %s",
+                   (new_date, new_time, 'Pending', appointment_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    flash('Appointment successfully rescheduled.', 'success')
+    return redirect(url_for('appointments'))
+
+@app.route("/cancel/<int:appointment_id>", methods=["POST"])
+@login_required(roles=['admin', 'doctor'])
+def cancel_appointment(appointment_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Appointment SET status = %s WHERE appointment_id = %s",
+                   ('Cancelled', appointment_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    flash('Appointment cancelled.', 'warning')
+    return redirect(url_for('appointments'))
+
+@app.route("/mark_status/<int:appointment_id>", methods=["POST"])
+@login_required(roles=['admin', 'doctor'])
+def mark_status(appointment_id):
+    new_status = request.form['status']
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Appointment SET status = %s WHERE appointment_id = %s",
+                   (new_status, appointment_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    flash(f'Appointment marked as {new_status}.', 'info')
+    return redirect(url_for('appointments'))
+
+@app.route("/add_patient", methods=["GET", "POST"])
+@login_required(roles=['admin', 'doctor'])
+def add_patient():
+    if request.method == "POST":
+        name, email = request.form['name'], request.form['email']
+        user_id = session['user_id']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("INSERT INTO Patient (user_id, name, email) VALUES (%s, %s, %s)", (user_id, name, email))
+            conn.commit()
+            flash("Patient added!", "success")
+            return redirect(url_for('patients'))
+        except Exception as e:
+            flash(f"Failed to add patient: {e}", "error")
+        finally:
+            cursor.close()
+            conn.close()
+    return render_template("add_patient.html")
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
-        name = request.form.get('name')
-        email = request.form.get('email')
-        message = request.form.get('message')
-
+        name, email, message = request.form.get('name'), request.form.get('email'), request.form.get('message')
         try:
-            # ✅ Send email to admin/support (or yourself)
             msg = Message(
-                subject=f"New Contact Form Submission from {name}",
+                subject=f"Contact Form: {name}",
                 sender=email,
-                recipients=[os.environ.get("MAIL_USERNAME", "shravyamnayak@gmail.com")],  # Your email
-                body=f"""
-                You've received a new message from the contact form:
-
-                Name: {name}
-                Email: {email}
-                Message: {message}
-                """
+                recipients=[os.getenv("MAIL_USERNAME", "shravyamnayak@gmail.com")],
+                body=f"Name: {name}\nEmail: {email}\nMessage:\n{message}"
             )
             mail.send(msg)
-
-            flash("Thank you for your message! We'll get back to you soon.", "success")
+            flash("Message sent successfully!", "success")
         except Exception as e:
-            # Capture more detailed error information
-            app.logger.error(f"An error occurred while sending the email: {str(e)}")
-            flash(f"An error occurred while sending your message: {str(e)}", "error")
-
+            flash(f"Failed to send message: {e}", "error")
         return redirect(url_for('contact'))
+    return render_template("contact.html")
 
-    return render_template('contact.html')
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+        conn = get_db_connection()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        user = cursor.fetchone()
+        if user and check_password_hash(user['password'], password):
+            session['user_id'] = user['id']
+            session['role'] = user['role'].lower()  # ✅ Ensure lowercase
+            flash("Login successful!", "success")
+            return redirect(url_for('index'))
+        flash("Invalid credentials.", "error")
+        cursor.close()
+        conn.close()
+    return render_template("login.html")
 
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "POST":
+        username = request.form["name"]
+        email = request.form["email"]
+        password = request.form["password"]
+        role = request.form["role"].lower()  # ✅ Store in lowercase
 
-@app.route("/api/doctors", methods=["GET"])
-def api_doctors():
-    doctors_list = get_all_doctors()
-    return jsonify(doctors_list)
+        hashed_password = generate_password_hash(password)
 
-@app.route("/api/patients", methods=["GET"])
-def api_patients():
-    patients_list = get_all_patients()
-    return jsonify(patients_list)
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("""
+                INSERT INTO users (username, email, password, role, created_at, updated_at, is_active)
+                VALUES (%s, %s, %s, %s, NOW(), NOW(), 1)
+            """, (username, email, hashed_password, role))
+            conn.commit()
+            flash("Signup successful! Please login.", "success")
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash(f"Signup failed: {e}", "error")
+        finally:
+            cursor.close()
+            conn.close()
+    return render_template("signup.html")
 
-@app.route("/api/appointments", methods=["GET"])
-def api_appointments():
-    appointments_list = get_appointments()
-    return jsonify(appointments_list)
+@app.route("/logout")
+def logout():
+    session.clear()
+    flash("Logged out successfully.", "success")
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True)

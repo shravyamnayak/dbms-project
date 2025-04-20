@@ -1,0 +1,24 @@
+<!-- templates/appointment_reschedule.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reschedule Appointment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container card">
+        <h2>Reschedule Appointment</h2>
+        <form method="POST">
+            <label for="date">New Date:</label>
+            <input type="date" name="date" value="{{ appointment.date }}" required>
+
+            <label for="time">New Time:</label>
+            <input type="time" name="time" value="{{ appointment.time.strftime('%H:%M') }}" required>
+
+            <button type="submit" class="btn">Confirm Reschedule</button>
+        </form>
+        <a href="{{ url_for('appointments') }}" class="btn secondary">Back</a>
+    </div>
+</body>
+</html>

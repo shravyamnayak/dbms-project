@@ -3,25 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up - MediSchedule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        // Password matching validation
+        function validatePassword() {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm_password").value;
+            const errorMsg = document.getElementById("password-error");
+            const submitBtn = document.getElementById("submit-btn");
+
+            if (password !== confirmPassword || password === "") {
+                errorMsg.style.display = "block";
+                submitBtn.disabled = true;
+            } else {
+                errorMsg.style.display = "none";
+                submitBtn.disabled = false;
+            }
+        }
+
+        window.onload = function () {
+            validatePassword();
+        };
+    </script>
 </head>
 <body>
-    <div class="form-container">
-        <a href="{{ url_for('index') }}" class="back-arrow">&#8592; Home</a>
-        <h2>Create an Account</h2>
-        <form action="{{ url_for('signup') }}" method="POST">
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" required>
 
-            <label for="email">Email Address:</label>
+    <!-- Navigation bar (optional for consistency) -->
+    <nav>
+        <div class="container nav-container">
+            <div class="nav-left">
+                <img src="{{ url_for('static', filename='hospital-logo.png') }}" alt="MediSchedule Logo" class="nav-logo" />
+                <h1 class="site-title">MediSchedule</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+                <li><a href="{{ url_for('patients') }}">Patients</a></li>
+                <li><a href="{{ url_for('doctors') }}">Doctors</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="{{ url_for('login') }}" class="nav-button">Login</a>
+                <a href="{{ url_for('signup') }}" class="nav-button">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+
+
+    <!-- Sign Up Form -->
+    <section class="section-container">
+        <div class="section-header">
+            <h2>Create an Account</h2>
+            <p>Sign up to manage your appointments on MediSchedule.</p>
+        </div>
+
+        <form action="{{ url_for('signup') }}" method="POST" class="appointment-form">
+            <label for="username">Full Name</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email Address</label>
             <input type="email" id="email" name="email" required>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="phone">Phone Number (optional)</label>
+            <input type="tel" id="phone" name="phone">
 
-            <button type="submit" class="cta-button">Sign Up</button>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required onkeyup="validatePassword()">
+
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required onkeyup="validatePassword()">
+            <span id="password-error" style="color: red; display: none;">Passwords do not match!</span>
+
+            <label for="role">Role</label>
+            <select name="role" id="role" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="admin">Admin</option>
+                <option value="doctor">Doctor</option>
+                <option value="patient">Patient</option>
+            </select>
+
+            <button type="submit" id="submit-btn" class="cta-button" disabled>Sign Up</button>
         </form>
-        <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
-    </div>
+
+        <p style="text-align: center; margin-top: 20px;">
+            Already have an account? <a href="{{ url_for('login') }}">Login</a>
+        </p>
+    </section>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
 </body>
 </html>

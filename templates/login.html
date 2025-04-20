@@ -3,22 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - MediSchedule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        // Toggle password visibility
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            var toggleBtn = document.getElementById("toggle-password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleBtn.textContent = "Hide";
+            } else {
+                passwordField.type = "password";
+                toggleBtn.textContent = "Show";
+            }
+        }
+    </script>
 </head>
 <body>
-    <div class="form-container">
-        <a href="{{ url_for('index') }}" class="back-arrow">&#8592; Home</a>
-        <h2>Login to Your Account</h2>
-        <form action="{{ url_for('login') }}" method="POST">
-            <label for="email">Email:</label>
+
+    <!-- Navigation bar (optional: can include if consistent with other pages) -->
+    <nav>
+        <div class="container nav-container">
+            <div class="nav-left">
+                <img src="{{ url_for('static', filename='hospital-logo.png') }}" alt="MediSchedule Logo" class="nav-logo" />
+                <h1 class="site-title">MediSchedule</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+                <li><a href="{{ url_for('patients') }}">Patients</a></li>
+                <li><a href="{{ url_for('doctors') }}">Doctors</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="{{ url_for('login') }}" class="nav-button">Login</a>
+                <a href="{{ url_for('signup') }}" class="nav-button">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+    <!-- Login Form -->
+    <section class="section-container">
+        <div class="section-header">
+            <h2>Login to Your Account</h2>
+            <p>Access your MediSchedule dashboard.</p>
+        </div>
+
+        <form action="{{ url_for('login') }}" method="POST" class="appointment-form">
+            <label for="email">Email</label>
             <input type="email" id="email" name="email" required>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="password">Password</label>
+            <div style="position: relative;">
+                <input type="password" id="password" name="password" required>
+                <button type="button" id="toggle-password" onclick="togglePassword()" style="position: absolute; right: 10px; top: 8px; background: none; border: none; color: #007BFF; cursor: pointer;">Show</button>
+            </div>
 
             <button type="submit" class="cta-button">Login</button>
         </form>
-        <p>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a></p>
-    </div>
+
+        {% if error %}
+            <p style="color:red; text-align: center; margin-top: 10px;">{{ error }}</p>
+        {% endif %}
+
+        <p style="text-align: center; margin-top: 20px;">
+            Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a>
+        </p>
+    </section>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
 </body>
 </html>
