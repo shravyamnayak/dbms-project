@@ -5,31 +5,10 @@
     <title>Sign Up - MediSchedule</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script>
-        // Password matching validation
-        function validatePassword() {
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirm_password").value;
-            const errorMsg = document.getElementById("password-error");
-            const submitBtn = document.getElementById("submit-btn");
-
-            if (password !== confirmPassword || password === "") {
-                errorMsg.style.display = "block";
-                submitBtn.disabled = true;
-            } else {
-                errorMsg.style.display = "none";
-                submitBtn.disabled = false;
-            }
-        }
-
-        window.onload = function () {
-            validatePassword();
-        };
-    </script>
 </head>
 <body>
 
-    <!-- Navigation bar (optional for consistency) -->
+    <!-- Navigation Bar -->
     <nav>
         <div class="container nav-container">
             <div class="nav-left">
@@ -51,54 +30,55 @@
     </nav>
 
     <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        <div class="flash-messages">
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
             {% for category, message in messages %}
-                <div class="flash-{{ category }}">{{ message }}</div>
+              <div class="flash-message flash-{{ category }}">
+                {{ message }}
+                <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+              </div>
             {% endfor %}
-        </div>
-    {% endif %}
-    {% endwith %}
+          {% endif %}
+        {% endwith %}
+    </div>
+    
 
-
-    <!-- Sign Up Form -->
+    <!-- Signup Form -->
     <section class="section-container">
         <div class="section-header">
-            <h2>Create an Account</h2>
-            <p>Sign up to manage your appointments on MediSchedule.</p>
+            <h2>Create Your Account</h2>
+            <p>Join MediSchedule and manage your appointments with ease.</p>
         </div>
 
         <form action="{{ url_for('signup') }}" method="POST" class="appointment-form">
-            <label for="username">Full Name</label>
-            <input type="text" id="username" name="username" required>
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
 
-            <label for="email">Email Address</label>
+            <label for="email">Email</label>
             <input type="email" id="email" name="email" required>
 
-            <label for="phone">Phone Number (optional)</label>
-            <input type="tel" id="phone" name="phone">
-
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required onkeyup="validatePassword()">
-
-            <label for="confirm_password">Confirm Password</label>
-            <input type="password" id="confirm_password" name="confirm_password" required onkeyup="validatePassword()">
-            <span id="password-error" style="color: red; display: none;">Passwords do not match!</span>
+            <input type="password" id="password" name="password" required>
 
             <label for="role">Role</label>
             <select name="role" id="role" required>
-                <option value="" disabled selected>Select Role</option>
-                <option value="admin">Admin</option>
-                <option value="doctor">Doctor</option>
+                <option value="">Select Role</option>
                 <option value="patient">Patient</option>
+                <option value="doctor">Doctor</option>
             </select>
 
-            <button type="submit" id="submit-btn" class="cta-button" disabled>Sign Up</button>
+            <button type="submit" class="cta-button">Sign Up</button>
         </form>
 
-        <p style="text-align: center; margin-top: 20px;">
-            Already have an account? <a href="{{ url_for('login') }}">Login</a>
+        {% if error %}
+            <p style="color:red; text-align: center; margin-top: 10px;">{{ error }}</p>
+        {% endif %}
+
+        <!-- Styled Login link -->
+        <p style="text-align: center; margin-top: 20px;" class="signup-prompt">
+            Already have an account?
+            <a href="{{ url_for('login') }}" class="signup-button">Login</a>
         </p>
     </section>
 

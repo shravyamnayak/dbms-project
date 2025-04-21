@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Welcome, Dr. {{ username }}!</h1>
+        <h2 class="welcome-text">Welcome, {{ user_name }}</h2>
         <nav>
             <ul>
                 <li><a href="{{ url_for('appointments') }}">Manage Appointments</a></li>
@@ -20,9 +20,21 @@
 
     <main>
         <h2>Doctor Dashboard</h2>
+
         <section>
-            <h3>Your Appointments</h3>
-            <p>Manage and view your appointments with patients.</p>
+            <h3>Upcoming Appointments</h3>
+            {% if appointments %}
+                <ul>
+                    {% for appointment in appointments %}
+                        <li>
+                            {{ appointment.date }} at {{ appointment.time }} – 
+                            {{ appointment.patient_name }} (Status: {{ appointment.status }})
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No upcoming appointments.</p>
+            {% endif %}
         </section>
 
         <section>

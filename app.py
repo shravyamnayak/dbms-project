@@ -71,26 +71,6 @@ def get_all_patients():
         conn.close()
     return patients
 
-def get_appointments():
-    conn = get_db_connection()
-    if not conn:
-        flash("Failed to connect to the database", "error")
-        return []
-    try:
-        cursor = conn.cursor(pymysql.cursors.DictCursor)
-        query = """
-            SELECT a.*, p.name as patient_name, d.name as doctor_name 
-            FROM Appointment a
-            JOIN Patient p ON a.patient_id = p.patient_id
-            JOIN Doctor d ON a.doctor_id = d.doctor_id
-        """
-        cursor.execute(query)
-        appointments = cursor.fetchall()
-    finally:
-        cursor.close()
-        conn.close()
-    return appointments
-
 # ✅ Routes
 @app.route("/")
 def index():
@@ -109,6 +89,9 @@ def patients():
 @app.route("/appointments", methods=["GET", "POST"])
 @login_required(roles=['admin', 'doctor', 'patient'])
 def appointments():
+    user_id = session.get('user_id')
+    user_role = session.get('role')
+
     if request.method == "POST":
         try:
             patient_id = int(request.form['patient_id'])
@@ -116,6 +99,11 @@ def appointments():
             date = request.form['date']
             time_str = request.form['time']
             patient_email = request.form['email']
+
+            # Ensure that patients can only book for themselves
+            if user_role == 'patient' and user_id != patient_id:
+                flash("You can only book appointments for yourself.", "error")
+                return redirect(url_for('appointments'))
 
             if len(time_str.split(':')) == 2:
                 time_obj = datetime.datetime.strptime(time_str, "%H:%M").time()
@@ -152,10 +140,33 @@ def appointments():
             conn.close()
         return redirect(url_for('appointments'))
 
+    conn = get_db_connection()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+    if user_role == 'patient':
+        cursor.execute("""
+            SELECT a.*, p.name as patient_name, d.name as doctor_name 
+            FROM Appointment a
+            JOIN Patient p ON a.patient_id = p.patient_id
+            JOIN Doctor d ON a.doctor_id = d.doctor_id
+            WHERE a.patient_id = %s
+        """, (user_id,))
+    else:
+        cursor.execute("""
+            SELECT a.*, p.name as patient_name, d.name as doctor_name 
+            FROM Appointment a
+            JOIN Patient p ON a.patient_id = p.patient_id
+            JOIN Doctor d ON a.doctor_id = d.doctor_id
+        """)
+
+    appointments = cursor.fetchall()
+    cursor.close()
+    conn.close()
+
     return render_template("appointments.html",
                            doctors=get_all_doctors(),
                            patients=get_all_patients(),
-                           appointments=get_appointments())
+                           appointments=appointments)
 
 @app.route("/reschedule/<int:appointment_id>", methods=["POST"])
 @login_required(roles=['admin', 'doctor'])
@@ -252,7 +263,8 @@ def login():
         user = cursor.fetchone()
         if user and check_password_hash(user['password'], password):
             session['user_id'] = user['id']
-            session['role'] = user['role'].lower()  # ✅ Ensure lowercase
+            session['role'] = user['role'].lower()
+            session['name'] = user['username']  # Ensure 'username' field is used for the name
             flash("Login successful!", "success")
             return redirect(url_for('index'))
         flash("Invalid credentials.", "error")
@@ -266,14 +278,14 @@ def signup():
         username = request.form["name"]
         email = request.form["email"]
         password = request.form["password"]
-        role = request.form["role"].lower()  # ✅ Store in lowercase
+        role = request.form["role"].lower()
 
         hashed_password = generate_password_hash(password)
 
         conn = get_db_connection()
         cursor = conn.cursor()
         try:
-            cursor.execute("""
+            cursor.execute(""" 
                 INSERT INTO users (username, email, password, role, created_at, updated_at, is_active)
                 VALUES (%s, %s, %s, %s, NOW(), NOW(), 1)
             """, (username, email, hashed_password, role))

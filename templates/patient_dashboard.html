@@ -8,10 +8,11 @@
 </head>
 <body>
     <header>
-        <h1>Welcome, {{ username }}!</h1>
+        <h2 class="welcome-text">Welcome, {{ user_name }}</h2>
         <nav>
             <ul>
                 <li><a href="{{ url_for('appointments') }}">View Appointments</a></li>
+                <li><a href="{{ url_for('profile') }}">My Profile</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
             </ul>
         </nav>
@@ -19,15 +20,29 @@
 
     <main>
         <h2>Patient Dashboard</h2>
+
         <section>
-            <h3>Your Appointments</h3>
-            <p>Here you can view and manage your upcoming appointments.</p>
+            <h3>Your Upcoming Appointments</h3>
+            {% if appointments %}
+                <ul>
+                    {% for appointment in appointments %}
+                        <li>
+                            {{ appointment.date }} at {{ appointment.time }} – 
+                            with Dr. {{ appointment.doctor_name }} 
+                            (Status: {{ appointment.status }})
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No upcoming appointments.</p>
+            {% endif %}
         </section>
 
         <section>
             <h3>Quick Links</h3>
             <ul>
                 <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+                <li><a href="{{ url_for('profile') }}">My Profile</a></li>
             </ul>
         </section>
     </main>

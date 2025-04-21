@@ -12,15 +12,15 @@
     <nav>
         <div class="container nav-container">
             <div class="nav-left">
-                <img src="static/hospital-logo.png" alt="MediSchedule Logo" class="nav-logo" />
+                <img src="{{ url_for('static', filename='hospital-logo.png') }}" alt="MediSchedule Logo" class="nav-logo" />
                 <h1 class="site-title">MediSchedule</h1>
             </div>
             <ul class="nav-menu">
                 <li><a href="/">Home</a></li>
-                <li><a href="appointments">Appointments</a></li>
-                <li><a href="patients">Patients</a></li>
-                <li><a href="doctors">Doctors</a></li>
-                <li><a href="contact">Contact Us</a></li>
+                <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+                <li><a href="{{ url_for('patients') }}">Patients</a></li>
+                <li><a href="{{ url_for('doctors') }}">Doctors</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
             </ul>
             <div class="nav-right">
                 <a href="{{ url_for('login') }}" class="nav-button">Login</a>
@@ -28,15 +28,16 @@
             </div>
         </div>
     </nav>
-     
-   
 
-    <!-- Flash Messages - Moved here, right after the Navigation Bar -->
+    <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             <div class="flash-messages">
                 {% for category, message in messages %}
-                    <div class="flash-message {{ 'success' if category == 'success' else 'error' }}">{{ message }}</div>
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                        <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+                    </div>
                 {% endfor %}
             </div>
         {% endif %}
@@ -67,6 +68,15 @@
     <!-- Footer Section -->
     {% include 'footer.html' %}
 
+    <!-- Auto Dismiss Flash Messages -->
+    <script>
+        setTimeout(() => {
+            document.querySelectorAll('.flash-message').forEach(msg => {
+                msg.style.opacity = '0';
+                setTimeout(() => msg.style.display = 'none', 300);
+            });
+        }, 5000);
+    </script>
     <script src="app.js"></script>
 </body>
 </html>

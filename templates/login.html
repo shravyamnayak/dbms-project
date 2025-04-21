@@ -22,7 +22,7 @@
 </head>
 <body>
 
-    <!-- Navigation bar (optional: can include if consistent with other pages) -->
+    <!-- Navigation Bar -->
     <nav>
         <div class="container nav-container">
             <div class="nav-left">
@@ -44,15 +44,19 @@
     </nav>
 
     <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        <div class="flash-messages">
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
             {% for category, message in messages %}
-                <div class="flash-{{ category }}">{{ message }}</div>
+              <div class="flash-message flash-{{ category }}">
+                {{ message }}
+                <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+              </div>
             {% endfor %}
-        </div>
-    {% endif %}
-{% endwith %}
+          {% endif %}
+        {% endwith %}
+    </div>
+    
 
     <!-- Login Form -->
     <section class="section-container">
@@ -78,8 +82,10 @@
             <p style="color:red; text-align: center; margin-top: 10px;">{{ error }}</p>
         {% endif %}
 
-        <p style="text-align: center; margin-top: 20px;">
-            Don't have an account? <a href="{{ url_for('signup') }}">Sign Up</a>
+        <!-- Styled Sign Up link -->
+        <p style="text-align: center; margin-top: 20px;" class="signup-prompt">
+            Don't have an account?
+            <a href="{{ url_for('signup') }}" class="signup-button">Sign Up</a>
         </p>
     </section>
 
