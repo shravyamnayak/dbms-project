@@ -1,6 +1,8 @@
 # 🩺 Doctor Appointment System
 
-A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**, and **CSS**, designed to streamline the process of booking and managing doctor appointments. This role-based system supports **patients**, **doctors**, and **admins**, offering features like appointment scheduling, status tracking, profile management, and email notifications.
+![Doctor Appointment System Banner](https://github.com/shravyamnayak/dbms-project/blob/main/banner.png)
+
+A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**, and **CSS**, designed to streamline the process of booking and managing doctor appointments. This role-based system supports **Patients**, **Doctors**, and **Admins**, offering features like appointment scheduling, status tracking, profile management, and email notifications.
 
 ---
 
@@ -33,77 +35,94 @@ A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**
 
 ## 🛠️ Tech Stack
 
-| Layer           | Technology             |
-|------------------|-------------------------|
-| **Backend**      | Flask (Python)          |
-| **Frontend**     | HTML, CSS (Custom)      |
-| **Database**     | MySQL with PyMySQL      |
-| **Email**        | Flask-Mail (Gmail SMTP) |
-| **Version Control** | Git & GitHub         |
+| Layer             | Technology               |
+|------------------|--------------------------|
+| **Backend**       | Flask (Python)           |
+| **Frontend**      | HTML, CSS (Custom)       |
+| **Database**      | MySQL with PyMySQL       |
+| **Email Service** | Flask-Mail (Gmail SMTP)  |
+| **Version Control** | Git & GitHub           |
 
 ---
 
-## **⚙️ Installation Guide**
-1. 📥 Clone the Repository
-```bash
+## ⚙️ Installation Guide
 
+### 📋 Prerequisites
+- Python 3.8+
+- MySQL Server
+- Git
+
+### 1. 📥 Clone the Repository
+```bash
 git clone https://github.com/shravyamnayak/dbms-project.git
 cd dbms-project
 ```
-3. 🧪 Set Up a Virtual Environment (Optional)
-```bash
 
+### 2. 🧪 Set Up a Virtual Environment (Optional)
+```bash
 python -m venv venv
-source venv/bin/activate     # On Windows: venv\Scripts\activate
+# On Linux/macOS
+source venv/bin/activate
+# On Windows
+venv\Scripts\activate
 ```
 
-4. 🗃️ Configure the MySQL Database
-- Create a database named doctors_appointment in MySQL.
-
-- Import the schema or use the provided SQL scripts to create the required tables.
-
-5. 📦 Install Dependencies
+### 3. 📦 Install Dependencies
 ```bash
-
 pip install -r requirements.txt
-6. 🗃️ Configure the MySQL Database
 ```
 
-5. ✉️ Configure Flask-Mail
-In config.py, set up your email configuration:
-```bash
+### 4. 🗃️ Configure the MySQL Database
+- Create a MySQL database named `doctors_appointment`.
+- Ensure all required tables are created based on the schema.
+
+### 5. ✉️ Configure Flask-Mail
+Edit `config.py`:
+```python
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 587
 MAIL_USE_TLS = True
 MAIL_USERNAME = 'your-email@gmail.com'
 MAIL_PASSWORD = 'your-app-password'
 ```
-6. ▶️ Run the App
 
+### 6. ▶️ Run the App
 ```bash
-
 flask run
 ```
-Access the app at: `http://127.0.0.1:5000`
 
-## **🌟 Future Enhancements**
-📱 Mobile App Integration: Cross-platform mobile apps for patients and doctors.
+Access the app at: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
-🔍 Advanced Search & Filters: Filter by specialization, date, availability.
+---
 
-⭐ Ratings & Feedback: Let patients rate and review doctors.
+## 🖼️ Screenshots 
+<!-- Uncomment and update the image paths -->
+<!--
+### 📋 Login Page
+![Login Page](screenshots/login.png)
 
-💳 Payment Integration: Secure online payments for paid consultations.
+### 🗓️ Appointment Dashboard
+![Dashboard](screenshots/dashboard.png)
+-->
 
-## **📄 License**
-This project is licensed under the MIT License.
-See the LICENSE.md file for details.
+---
 
-## **🔗 GitHub Repository**
-🔗 GitHub – `shravyamnayak/dbms-project`
+## 🌟 Future Enhancements
 
+- 📱 **Mobile App Integration**: Cross-platform mobile apps for patients and doctors.
+- 🔍 **Advanced Search & Filters**: Filter by specialization, date, and availability.
+- ⭐ **Ratings & Feedback**: Let patients rate and review doctors.
+- 💳 **Payment Integration**: Secure online payments for consultations.
 
+---
 
+## 📄 License
 
+This project is licensed under the **MIT License**.  
+See the [LICENSE.md](LICENSE.md) file for details.
 
+---
 
+## 🔗 GitHub Repository
+
+🔗 [GitHub – shravyamnayak/dbms-project](https://github.com/shravyamnayak/dbms-project)
