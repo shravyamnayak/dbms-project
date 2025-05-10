@@ -1,4 +1,4 @@
-🩺 Doctor Appointment System
+# 🩺 Doctor Appointment System
 A full-stack web application built using Flask (Python), MySQL, HTML, and CSS, designed to streamline the process of booking and managing doctor appointments. This role-based system supports patients, doctors, and admin users, offering features like appointment scheduling, status tracking, profile management, and email notifications.
 
 ## **🚀 Features**
