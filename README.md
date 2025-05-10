@@ -56,6 +56,12 @@ cd dbms-project
 python -m venv venv
 source venv/bin/activate     # On Windows: venv\Scripts\activate
 ```
+
+4. 🗃️ Configure the MySQL Database
+- Create a database named doctors_appointment in MySQL.
+
+- Import the schema or use the provided SQL scripts to create the required tables.
+
 5. 📦 Install Dependencies
 ```bash
 
@@ -77,8 +83,9 @@ MAIL_PASSWORD = 'your-app-password'
 ```bash
 
 flask run
-Access the app at: `http://127.0.0.1:5000`
 ```
+Access the app at: `http://127.0.0.1:5000`
+
 ## **🌟 Future Enhancements**
 📱 Mobile App Integration: Cross-platform mobile apps for patients and doctors.
 
