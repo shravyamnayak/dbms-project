@@ -2,19 +2,19 @@
 A full-stack web application built using Flask (Python), MySQL, HTML, and CSS, designed to streamline the process of booking and managing doctor appointments. This role-based system supports patients, doctors, and admin users, offering features like appointment scheduling, status tracking, profile management, and email notifications.
 
 ## **🚀 Features**
-## 🔐 Role-Based Authentication
+### 🔐 Role-Based Authentication
 Patients, Doctors, and Admins can register and securely log in.
 Each user has access only to role-appropriate features.
 
-## 📅 Appointment Management
+### 📅 Appointment Management
 Patients: Book, reschedule, and cancel appointments.
 Doctors: View and update appointments.
 Admins: Full access to all appointments and user data.
 
-## 🔄 Appointment Status Tracking
+### 🔄 Appointment Status Tracking
 Statuses include: Pending, Completed, Cancelled, and Missed.
 
-## 📧 Email Notifications
+### 📧 Email Notifications
 Real-time email alerts for:
 Appointment confirmation
 Rescheduling updates
