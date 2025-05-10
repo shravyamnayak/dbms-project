@@ -62,9 +62,6 @@ source venv/bin/activate     # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 6. 🗃️ Configure the MySQL Database
 ```
-Create a database named doctors_appointment in MySQL.
-
-Ensure all necessary tables are created as per the project schema.
 
 5. ✉️ Configure Flask-Mail
 In config.py, set up your email configuration:
