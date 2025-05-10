@@ -1,38 +1,47 @@
 # 🩺 Doctor Appointment System
-A full-stack web application built using Flask (Python), MySQL, HTML, and CSS, designed to streamline the process of booking and managing doctor appointments. This role-based system supports patients, doctors, and admin users, offering features like appointment scheduling, status tracking, profile management, and email notifications.
 
-## **🚀 Features**
+A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**, and **CSS**, designed to streamline the process of booking and managing doctor appointments. This role-based system supports **patients**, **doctors**, and **admins**, offering features like appointment scheduling, status tracking, profile management, and email notifications.
+
+---
+
+## 🚀 Features
+
 ### 🔐 Role-Based Authentication
-Patients, Doctors, and Admins can register and securely log in.
-Each user has access only to role-appropriate features.
+- Patients, Doctors, and Admins can register and securely log in.
+- Each user has access only to role-appropriate features.
 
 ### 📅 Appointment Management
-Patients: Book, reschedule, and cancel appointments.
-Doctors: View and update appointments.
-Admins: Full access to all appointments and user data.
+- **Patients**: Book, reschedule, and cancel appointments.
+- **Doctors**: View and update appointments.
+- **Admins**: Full access to all appointments and user data.
 
 ### 🔄 Appointment Status Tracking
-Statuses include: Pending, Completed, Cancelled, and Missed.
+- Statuses include: `Pending`, `Completed`, `Cancelled`, and `Missed`.
 
 ### 📧 Email Notifications
-Real-time email alerts for:
-Appointment confirmation
-Rescheduling updates
-Cancellations
+- Real-time email alerts for:
+  - Appointment confirmation  
+  - Rescheduling updates  
+  - Cancellations  
+- Powered by **Flask-Mail** with Gmail SMTP.
 
-Powered by Flask-Mail with Gmail SMTP.
+### 🌐 Responsive Frontend
+- Clean and user-friendly interface using custom **HTML & CSS**.
+- Fully responsive across devices.
 
-## 🌐 Responsive Frontend
-Clean and user-friendly interface using custom HTML & CSS.
-Fully responsive across devices.
+---
 
-## **🛠️ Tech Stack**
--Layer	Technology
--Backend	Flask (Python)
--Frontend	HTML, CSS (Custom)
--Database	MySQL with PyMySQL
--Email	Flask-Mail (Gmail SMTP)
--Version Control	Git & GitHub
+## 🛠️ Tech Stack
+
+| Layer           | Technology             |
+|------------------|-------------------------|
+| **Backend**      | Flask (Python)          |
+| **Frontend**     | HTML, CSS (Custom)      |
+| **Database**     | MySQL with PyMySQL      |
+| **Email**        | Flask-Mail (Gmail SMTP) |
+| **Version Control** | Git & GitHub         |
+
+---
 
 ## **⚙️ Installation Guide**
 1. 📥 Clone the Repository
@@ -88,5 +97,9 @@ See the LICENSE.md file for details.
 
 ## **🔗 GitHub Repository**
 🔗 GitHub – `shravyamnayak/dbms-project`
+
+
+
+
 
 
