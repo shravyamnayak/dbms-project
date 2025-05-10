@@ -5,12 +5,10 @@ A full-stack Doctor Appointment System built using Flask (Python), MySQL, HTML, 
 Features
 
 User Authentication:
-
 Patients, doctors, and admins can register and log in with role-based access control.
 
 
 Appointment Management:
-
 Patients can book, reschedule, and cancel appointments.
 
 Doctors can view, update, and manage appointments.
@@ -19,65 +17,49 @@ Admins have full control to view all appointments and users.
 
 
 Appointment Status Tracking:
-
 The system supports appointment statuses like Pending, Completed, Cancelled, and Missed.
 
 
 Email Notifications:
-
 Email alerts for appointment confirmation, rescheduling, and cancellation using Flask-Mail.
 
 
 Responsive Frontend:
-
 The frontend is built with HTML, CSS, and custom styles for responsive and user-friendly interfaces.
 
 
 
 Technologies Used
-
 Backend: Flask (Python)
-
 Database: MySQL (PyMySQL connector)
-
 Frontend: HTML, CSS (customized layout)
-
 Email Service: Flask-Mail (Gmail SMTP server for email notifications)
-
 Version Control: Git, GitHub
 
 
 Installation
-
 1. Clone the repository:
 
 git clone https://github.com/YourUsername/your-repo-name.git
 cd your-repo-name
 
-
 2. Set up a virtual environment (optional but recommended):
-
 python -m venv venv
 source venv/bin/activate  # On Windows, use venv\Scripts\activate
 
 
 3. Install the required dependencies:
-
 pip install -r requirements.txt
 
 
 4. Configure the database:
-
 Set up the MySQL database doctors_appointment (or any name of your choice).
 
 Ensure the database is configured with the appropriate tables as defined in the project.
 
-
-
 5. Set up environment variables for Flask-Mail:
 
 For email notifications, make sure to configure Flask-Mail in config.py with your Gmail SMTP settings.
-
 
 
 6. Run the application:
