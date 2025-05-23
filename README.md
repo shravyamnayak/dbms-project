@@ -65,6 +65,7 @@ cd dbms-project
 python -m venv venv
 # On Linux/macOS
 source venv/bin/activate
+
 # On Windows
 venv\Scripts\activate
 ```
