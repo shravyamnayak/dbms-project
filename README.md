@@ -76,7 +76,8 @@ A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**
 - Python 3.8+
 - MySQL Server
 - Git
-
+- Docker (optional, for containerized setup)
+  
 ### 1. 📥 Clone the Repository
 ```bash
 git clone https://github.com/shravyamnayak/dbms-project.git
@@ -121,6 +122,19 @@ Access the app at: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ---
 
+## 🐳 Running with Docker (Optional)
+You can run the full stack using Docker for easier deployment:
+
+Make sure Docker is installed and running.
+
+Run the following command:
+
+```bash
+docker-compose up --build
+```
+The app will be available at http://localhost:5000.
+
+This uses Docker containers for the Flask backend and MySQL database, simplifying setup and portability.
 ## 🖼️ Project Screenshots
 
 Here are some key screens from the **Doctor Appointment System** showcasing the main features and UI:
@@ -200,5 +214,3 @@ See the [LICENSE.md](LICENSE.md) file for details.
 
 🔗 [GitHub – shravyamnayak/dbms-project](https://github.com/shravyamnayak/dbms-project)
 
----
-If you want it in any other format (like pure text, no markdown, or HTML), just let me know!
