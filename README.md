@@ -95,35 +95,48 @@ Access the app at: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ---
 
-## 🖼️ Screenshots
+## 🖼️ Project Screenshots
+
+Here are some key screens from the **Doctor Appointment System** showcasing the main features and UI:
 
 <table>
   <tr>
-    <td align="center">
-      <img src="screenshots/login.png" alt="Login Page" width="250"/>
+    <td align="center" style="padding: 15px;">
+      <img src="screenshots/login.png" alt="Login Page" width="280" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
       <br/>
-      <strong>Login Page</strong>
+      <strong>🔐 Login Page</strong>
+      <p style="max-width: 280px; color: #555; font-style: italic; font-size: 0.9em;">
+        Secure login with email and password authentication.
+      </p>
     </td>
-    <td align="center">
-      <img src="screenshots/appointment.png" alt="Appointment Page" width="250"/>
+    <td align="center" style="padding: 15px;">
+      <img src="screenshots/appointment.png" alt="Appointment Page" width="280" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
       <br/>
-      <strong>Appointment Page</strong>
+      <strong>📅 Appointment Dashboard</strong>
+      <p style="max-width: 280px; color: #555; font-style: italic; font-size: 0.9em;">
+        View and manage your scheduled appointments easily.
+      </p>
     </td>
   </tr>
   <tr>
-    <td align="center">
-      <img src="screenshots/reschedule.png" alt="Reschedule Page" width="250"/>
+    <td align="center" style="padding: 15px;">
+      <img src="screenshots/reschedule.png" alt="Reschedule Page" width="280" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
       <br/>
-      <strong>Reschedule Page</strong>
+      <strong>🔄 Reschedule Page</strong>
+      <p style="max-width: 280px; color: #555; font-style: italic; font-size: 0.9em;">
+        Easily reschedule appointments with just a few clicks.
+      </p>
     </td>
-    <td align="center">
-      <img src="screenshots/home.png" alt="Home Page" width="250"/>
+    <td align="center" style="padding: 15px;">
+      <img src="screenshots/home.png" alt="Home Page" width="280" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
       <br/>
-      <strong>Home Page</strong>
+      <strong>🏠 Home Page</strong>
+      <p style="max-width: 280px; color: #555; font-style: italic; font-size: 0.9em;">
+        Welcome screen with navigation to key features and quick info.
+      </p>
     </td>
   </tr>
 </table>
-
 
 ---
 
