@@ -135,6 +135,9 @@ docker-compose up --build
 The app will be available at http://localhost:5000.
 
 This uses Docker containers for the Flask backend and MySQL database, simplifying setup and portability.
+
+--- 
+
 ## 🖼️ Project Screenshots
 
 Here are some key screens from the **Doctor Appointment System** showcasing the main features and UI:
