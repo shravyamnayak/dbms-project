@@ -141,9 +141,16 @@ Here are some key screens from the **Doctor Appointment System** showcasing the 
   </tr>
 </table>
 
-
 ---
 
+## 🤝 Contributing
+Contributions are welcome!
+Feel free to open issues for bugs or feature requests, or submit pull requests.
+
+Please adhere to the existing code style and add tests when applicable.
+
+ ---
+ 
 ## 🌟 Future Enhancements
 
 - 📱 **Mobile App Integration**: Cross-platform mobile apps for patients and doctors.
