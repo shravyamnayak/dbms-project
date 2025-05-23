@@ -80,7 +80,7 @@ pip install -r requirements.txt
 - Ensure all required tables are created based on the schema.
 
 ### 5. ✉️ Configure Flask-Mail
-Edit `config.py`:
+
 ```python
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 587
