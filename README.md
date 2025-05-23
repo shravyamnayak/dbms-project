@@ -124,19 +124,24 @@ Access the app at: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 ---
 
-## 🐳 Running with Docker (Optional)
-You can run the full stack using Docker for easier deployment:
+## 🐳 Run with Docker (Optional)
+Easily spin up the entire application stack using Docker for quick setup and deployment:
 
-Make sure Docker is installed and running.
+⚙️ Prerequisites:
+Ensure Docker and Docker Compose are installed and running on your system.
 
-Run the following command:
-
+🚀 Launch the App:
 ```bash
 docker-compose up --build
 ```
-The app will be available at http://localhost:5000.
+Once it’s up, open your browser and visit:
+👉 http://localhost:5000
 
-This uses Docker containers for the Flask backend and MySQL database, simplifying setup and portability.
+📦 What’s Included:
+**🐍 Flask Backend** – Serves the web app
+**🐬 MySQL Database** – Stores all appointment and user data
+
+Docker handles all dependencies and setup, making the project portable and easy to run anywhere.
 
 --- 
 
