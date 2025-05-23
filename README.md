@@ -160,6 +160,12 @@ Please adhere to the existing code style and add tests when applicable.
 
 ---
 
+## 📫 Contact
+GitHub: shravyamnayak
+
+Email: shravyamnayak@gmail.com
+
+---
 ## 📄 License
 
 This project is licensed under the **MIT License**.  
