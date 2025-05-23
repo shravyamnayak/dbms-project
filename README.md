@@ -102,6 +102,14 @@ Here are some key screens from the **Doctor Appointment System** showcasing the 
 <table>
   <tr>
     <td align="center" style="padding: 15px;">
+      <img src="screenshots/home.png" alt="Home Page" width="280" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+      <br/>
+      <strong>🏠 Home Page</strong>
+      <p style="max-width: 280px; color: #555; font-style: italic; font-size: 0.9em;">
+        Welcome screen with navigation to key features and quick info.
+      </p>
+    </td>
+    <td align="center" style="padding: 15px;">
       <img src="screenshots/login.png" alt="Login Page" width="280" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
       <br/>
       <strong>🔐 Login Page</strong>
@@ -109,6 +117,8 @@ Here are some key screens from the **Doctor Appointment System** showcasing the 
         Secure login with email and password authentication.
       </p>
     </td>
+  </tr>
+  <tr>
     <td align="center" style="padding: 15px;">
       <img src="screenshots/appointment.png" alt="Appointment Page" width="280" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
       <br/>
@@ -117,8 +127,6 @@ Here are some key screens from the **Doctor Appointment System** showcasing the 
         View and manage your scheduled appointments easily.
       </p>
     </td>
-  </tr>
-  <tr>
     <td align="center" style="padding: 15px;">
       <img src="screenshots/reschedule.png" alt="Reschedule Page" width="280" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
       <br/>
@@ -127,16 +135,9 @@ Here are some key screens from the **Doctor Appointment System** showcasing the 
         Easily reschedule appointments with just a few clicks.
       </p>
     </td>
-    <td align="center" style="padding: 15px;">
-      <img src="screenshots/home.png" alt="Home Page" width="280" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
-      <br/>
-      <strong>🏠 Home Page</strong>
-      <p style="max-width: 280px; color: #555; font-style: italic; font-size: 0.9em;">
-        Welcome screen with navigation to key features and quick info.
-      </p>
-    </td>
   </tr>
 </table>
+
 
 ---
 
