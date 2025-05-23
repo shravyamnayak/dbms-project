@@ -37,13 +37,13 @@ A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**
 
 ## 🛠️ Tech Stack
 
-| Layer             | Technology               |
-|------------------|--------------------------|
-| **Backend**       | Flask (Python)           |
-| **Frontend**      | HTML, CSS (Custom)       |
-| **Database**      | MySQL with PyMySQL       |
-| **Email Service** | Flask-Mail (Gmail SMTP)  |
-| **Version Control** | Git & GitHub           |
+| Layer             | Technology                                                                                      |
+|-------------------|------------------------------------------------------------------------------------------------|
+| **Backend**       | ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white) Flask (Python)           |
+| **Frontend**      | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white), ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) Custom HTML & CSS       |
+| **Database**      | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) MySQL with PyMySQL       |
+| **Email Service** | ![Flask-Mail](https://img.shields.io/badge/Flask--Mail-333333?style=for-the-badge&logo=mailchimp&logoColor=white) Flask-Mail (Gmail SMTP)  |
+| **Version Control** | ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white) Git & GitHub           |
 
 ---
 
