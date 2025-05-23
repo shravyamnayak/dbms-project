@@ -109,6 +109,34 @@ Access the app at: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 ### 🏠 Home Page
 ![Home Page](screenshots/home.png)
 
+## 🖼️ Screenshots
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/login.png" alt="Login Page" width="250"/>
+      <br/>
+      <strong>Login Page</strong>
+    </td>
+    <td align="center">
+      <img src="screenshots/appointment.png" alt="Appointment Page" width="250"/>
+      <br/>
+      <strong>Appointment Page</strong>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="screenshots/reschedule.png" alt="Reschedule Page" width="250"/>
+      <br/>
+      <strong>Reschedule Page</strong>
+    </td>
+    <td align="center">
+      <img src="screenshots/home.png" alt="Home Page" width="250"/>
+      <br/>
+      <strong>Home Page</strong>
+    </td>
+  </tr>
+</table>
 
 
 ---
