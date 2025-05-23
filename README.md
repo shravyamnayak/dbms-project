@@ -1,5 +1,7 @@
 # 🩺 Doctor Appointment System
 
+> A role-based web app to simplify booking, managing, and tracking doctor appointments with real-time email notifications.
+
 ![Doctor Appointment System Banner](https://github.com/shravyamnayak/dbms-project/blob/main/static/banner.png)
 
 A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**, and **CSS**, designed to streamline the process of booking and managing doctor appointments. This role-based system supports **Patients**, **Doctors**, and **Admins**, offering features like appointment scheduling, status tracking, profile management, and email notifications.
