@@ -100,8 +100,15 @@ Access the app at: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 ### 📋 Login Page
 ![Login Page](screenshots/login.png)
 
-### 🗓️ Appointment Dashboard
-![Dashboard](screenshots/dashboard.png)
+### 🗓️ Appointment Page
+![Appointment Page](screenshots/appointment.png)
+
+### 🔄 Reschedule Page
+![Reschedule Page](screenshots/reschedule.png)
+
+### 🏠 Home Page
+![Home Page](screenshots/home.png)
+
 
 
 ---
