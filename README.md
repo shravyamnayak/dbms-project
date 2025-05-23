@@ -176,3 +176,6 @@ See the [LICENSE.md](LICENSE.md) file for details.
 ## 🔗 GitHub Repository
 
 🔗 [GitHub – shravyamnayak/dbms-project](https://github.com/shravyamnayak/dbms-project)
+
+---
+If you want it in any other format (like pure text, no markdown, or HTML), just let me know!
