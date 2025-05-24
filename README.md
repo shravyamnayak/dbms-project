@@ -33,6 +33,57 @@ A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**
 
 ---
 
+## 💻 Backend Tech Stack Overview
+
+### 🐍 Programming Language & Framework
+
+- **[Python](https://www.python.org/)**  
+- **[Flask 3.1.0](https://flask.palletsprojects.com/)** – Lightweight web framework for building the backend.  
+- **[Flask-CORS 5.0.1](https://flask-cors.readthedocs.io/)** – Enables Cross-Origin Resource Sharing (CORS).  
+- **[Gunicorn 21.2.0](https://docs.gunicorn.org/en/stable/)** – WSGI HTTP server used for deployment in production.  
+
+---
+
+### 🔐 Security & Utilities
+
+- **[itsdangerous 2.2.0](https://itsdangerous.palletsprojects.com/)** – For secure data signing (used in Flask sessions).  
+- **[cryptography 44.0.2](https://cryptography.io/en/latest/)** – Provides cryptographic recipes and primitives.  
+- **[blinker 1.9.0](https://pythonhosted.org/blinker/)** – Provides fast and simple object-to-object and broadcast signaling.  
+
+---
+
+### ⚙️ Web Utilities
+
+- **[Werkzeug 3.1.3](https://werkzeug.palletsprojects.com/)** – WSGI utility library used under the hood in Flask.  
+- **[Jinja2 3.1.6](https://jinja.palletsprojects.com/)** – Template engine for Python, used by Flask.  
+- **[MarkupSafe 3.0.2](https://markupsafe.palletsprojects.com/)** – Safely handles strings in Jinja templates.  
+- **[Click 8.1.8](https://click.palletsprojects.com/)** – Command-line utility library (used by Flask CLI).  
+- **[colorama 0.4.6](https://pypi.org/project/colorama/)** – For cross-platform terminal color formatting.  
+
+---
+
+### 🗃️ Database Stack
+
+- **[PyMySQL 1.1.1](https://pymysql.readthedocs.io/)** – Pure Python MySQL client.  
+- **[mysql-connector 2.2.9](https://dev.mysql.com/doc/connector-python/en/)** – Oracle's official MySQL client for Python.  
+- **[mysqlclient 2.2.7](https://mysqlclient.readthedocs.io/)** – Fast MySQL client written in C (recommended for production).  
+- **[mysql 0.0.3](https://pypi.org/project/mysql/)** – Wrapper (not commonly used; possibly a placeholder or meta-package).  
+
+> ⚠️ **Note:** You don’t need all 4 MySQL clients. Pick one based on your usage:  
+> - For Flask + SQLAlchemy, use `mysqlclient` or `PyMySQL`.  
+> - For pure MySQL without ORM, `mysql-connector` or `PyMySQL` is enough.  
+
+---
+
+### 🔧 System & Dependency Utilities
+
+- **[cffi 1.17.1](https://cffi.readthedocs.io/)** – Required for low-level system calls, often a dependency of `cryptography`.  
+- **[pycparser 2.22](https://github.com/eliben/pycparser)** – C parser used by `cffi`.  
+- **[importlib_metadata 8.6.1](https://importlib-metadata.readthedocs.io/)** – Access to package metadata.  
+- **[zipp 3.21.0](https://zipp.readthedocs.io/)** – A pathlib-compatible zipfile wrapper.  
+
+---
+
 ## 🚀 Features
 
 ### 🔐 Role-Based Authentication
