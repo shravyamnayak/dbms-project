@@ -77,10 +77,10 @@ A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**
 
 ### 🔧 System & Dependency Utilities
 
-- **[cffi 1.17.1](https://cffi.readthedocs.io/)** – Required for low-level system calls, often a dependency of `cryptography`.  
-- **[pycparser 2.22](https://github.com/eliben/pycparser)** – C parser used by `cffi`.  
-- **[importlib_metadata 8.6.1](https://importlib-metadata.readthedocs.io/)** – Access to package metadata.  
-- **[zipp 3.21.0](https://zipp.readthedocs.io/)** – A pathlib-compatible zipfile wrapper.  
+- **[cffi 1.17.1](https://cffi.readthedocs.io/)** – Required for low-level system calls, often a dependency of `cryptography`
+- **[pycparser 2.22](https://github.com/eliben/pycparser)** – C parser used by `cffi`
+- **[importlib_metadata 8.6.1](https://importlib-metadata.readthedocs.io/)** – Access to package metadata  
+- **[zipp 3.21.0](https://zipp.readthedocs.io/)** – A pathlib-compatible zipfile wrapper  
 
 ---
 
