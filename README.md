@@ -87,27 +87,27 @@ A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**
 ## 🚀 Features
 
 ### 🔐 Role-Based Authentication
-- Patients, Doctors, and Admins can register and securely log in.
-- Each user has access only to role-appropriate features.
+- Patients, Doctors, and Admins can register and securely log in
+- Each user has access only to role-appropriate features
 
 ### 📅 Appointment Management
-- **Patients**: Book, reschedule, and cancel appointments.
-- **Doctors**: View and update appointments.
-- **Admins**: Full access to all appointments and user data.
+- **Patients**: Book, reschedule, and cancel appointments
+- **Doctors**: View and update appointments
+- **Admins**: Full access to all appointments and user data
 
 ### 🔄 Appointment Status Tracking
-- Statuses include: `Pending`, `Completed`, `Cancelled`, and `Missed`.
+- Statuses include: `Pending`, `Completed`, `Cancelled`, and `Missed`
 
 ### 📧 Email Notifications
 - Real-time email alerts for:
   - Appointment confirmation  
   - Rescheduling updates  
   - Cancellations  
-- Powered by **Flask-Mail** with Gmail SMTP.
+- Powered by **Flask-Mail** with Gmail SMTP
 
 ### 🌐 Responsive Frontend
-- Clean and user-friendly interface using custom **HTML & CSS**.
-- Fully responsive across devices.
+- Clean and user-friendly interface using custom **HTML & CSS**
+- Fully responsive across devices
 
 ---
 
