@@ -64,14 +64,14 @@ A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**
 
 ### 🗃️ Database Stack
 
-- **[PyMySQL 1.1.1](https://pymysql.readthedocs.io/)** – Pure Python MySQL client.  
-- **[mysql-connector 2.2.9](https://dev.mysql.com/doc/connector-python/en/)** – Oracle's official MySQL client for Python.  
-- **[mysqlclient 2.2.7](https://mysqlclient.readthedocs.io/)** – Fast MySQL client written in C (recommended for production).  
-- **[mysql 0.0.3](https://pypi.org/project/mysql/)** – Wrapper (not commonly used; possibly a placeholder or meta-package).  
+- **[PyMySQL 1.1.1](https://pymysql.readthedocs.io/)** – Pure Python MySQL client 
+- **[mysql-connector 2.2.9](https://dev.mysql.com/doc/connector-python/en/)** – Oracle's official MySQL client for Python  
+- **[mysqlclient 2.2.7](https://mysqlclient.readthedocs.io/)** – Fast MySQL client written in C (recommended for production)  
+- **[mysql 0.0.3](https://pypi.org/project/mysql/)** – Wrapper (not commonly used; possibly a placeholder or meta-package)  
 
 > ⚠️ **Note:** You don’t need all 4 MySQL clients. Pick one based on your usage:  
-> - For Flask + SQLAlchemy, use `mysqlclient` or `PyMySQL`.  
-> - For pure MySQL without ORM, `mysql-connector` or `PyMySQL` is enough.  
+> - For Flask + SQLAlchemy, use `mysqlclient` or `PyMySQL`  
+> - For pure MySQL without ORM, `mysql-connector` or `PyMySQL` is enough  
 
 ---
 
