@@ -153,8 +153,8 @@ pip install -r requirements.txt
 ```
 
 ### 4. 🗃️ Configure the MySQL Database
-- Create a MySQL database named `doctors_appointment`.
-- Ensure all required tables are created based on the schema.
+- Create a MySQL database named `doctors_appointment`
+- Ensure all required tables are created based on the schema
 
 ### 5. ✉️ Configure Flask-Mail
 
