@@ -251,10 +251,10 @@ Please adhere to the existing code style and add tests when applicable.
  
 ## 🌟 Future Enhancements
 
-- 📱 **Mobile App Integration**: Cross-platform mobile apps for patients and doctors.
-- 🔍 **Advanced Search & Filters**: Filter by specialization, date, and availability.
-- ⭐ **Ratings & Feedback**: Let patients rate and review doctors.
-- 💳 **Payment Integration**: Secure online payments for consultations.
+- 📱 **Mobile App Integration**: Cross-platform mobile apps for patients and doctors
+- 🔍 **Advanced Search & Filters**: Filter by specialization, date, and availability
+- ⭐ **Ratings & Feedback**: Let patients rate and review doctors
+- 💳 **Payment Integration**: Secure online payments for consultations
 
 ---
 
