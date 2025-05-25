@@ -37,28 +37,28 @@ A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**
 
 ### 🐍 Programming Language & Framework
 
-- **[Python](https://www.python.org/)** - High-level, interpreted programming language known for its simplicity, readability, and vast ecosystem of libraries.
-- **[Flask 3.1.0](https://flask.palletsprojects.com/)** – Lightweight web framework for building the backend.  
-- **[Flask-CORS 5.0.1](https://flask-cors.readthedocs.io/)** – Enables Cross-Origin Resource Sharing (CORS).  
-- **[Gunicorn 21.2.0](https://docs.gunicorn.org/en/stable/)** – WSGI HTTP server used for deployment in production.  
+- **[Python](https://www.python.org/)** - High-level, interpreted programming language known for its simplicity, readability, and vast ecosystem of libraries
+- **[Flask 3.1.0](https://flask.palletsprojects.com/)** – Lightweight web framework for building the backend
+- **[Flask-CORS 5.0.1](https://flask-cors.readthedocs.io/)** – Enables Cross-Origin Resource Sharing (CORS)  
+- **[Gunicorn 21.2.0](https://docs.gunicorn.org/en/stable/)** – WSGI HTTP server used for deployment in production  
 
 ---
 
 ### 🔐 Security & Utilities
 
-- **[itsdangerous 2.2.0](https://itsdangerous.palletsprojects.com/)** – For secure data signing (used in Flask sessions).  
-- **[cryptography 44.0.2](https://cryptography.io/en/latest/)** – Provides cryptographic recipes and primitives.  
-- **[blinker 1.9.0](https://pythonhosted.org/blinker/)** – Provides fast and simple object-to-object and broadcast signaling.  
+- **[itsdangerous 2.2.0](https://itsdangerous.palletsprojects.com/)** – For secure data signing (used in Flask sessions)
+- **[cryptography 44.0.2](https://cryptography.io/en/latest/)** – Provides cryptographic recipes and primitives
+- **[blinker 1.9.0](https://pythonhosted.org/blinker/)** – Provides fast and simple object-to-object and broadcast signaling  
 
 ---
 
 ### ⚙️ Web Utilities
 
-- **[Werkzeug 3.1.3](https://werkzeug.palletsprojects.com/)** – WSGI utility library used under the hood in Flask.  
-- **[Jinja2 3.1.6](https://jinja.palletsprojects.com/)** – Template engine for Python, used by Flask.  
-- **[MarkupSafe 3.0.2](https://markupsafe.palletsprojects.com/)** – Safely handles strings in Jinja templates.  
-- **[Click 8.1.8](https://click.palletsprojects.com/)** – Command-line utility library (used by Flask CLI).  
-- **[colorama 0.4.6](https://pypi.org/project/colorama/)** – For cross-platform terminal color formatting.  
+- **[Werkzeug 3.1.3](https://werkzeug.palletsprojects.com/)** – WSGI utility library used under the hood in Flask
+- **[Jinja2 3.1.6](https://jinja.palletsprojects.com/)** – Template engine for Python, used by Flask
+- **[MarkupSafe 3.0.2](https://markupsafe.palletsprojects.com/)** – Safely handles strings in Jinja templates  
+- **[Click 8.1.8](https://click.palletsprojects.com/)** – Command-line utility library (used by Flask CLI)  
+- **[colorama 0.4.6](https://pypi.org/project/colorama/)** – For cross-platform terminal color formatting
 
 ---
 
