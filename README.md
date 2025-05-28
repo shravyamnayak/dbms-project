@@ -272,13 +272,3 @@ This project is licensed under the **MIT License**.
 See the [LICENSE.md](LICENSE.md) file for details.
 
 ---
-
-
-## 📈 GitHub Stats
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=shravyamnayak&show_icons=true&theme=react" width="50%"/>
-  <img src="https://streak-stats.demolab.com?user=shravyamnayak&theme=react" width="45%"/>
-</p>
-
- 
