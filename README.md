@@ -1,5 +1,23 @@
 # 🩺 Doctor Appointment System
+## 🛠 Backend Tech Stack
 
+### 🐍 Programming Language & Framework
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?style=flat&logo=flask)
+![Gunicorn](https://img.shields.io/badge/Gunicorn-499848?style=flat&logo=gunicorn&logoColor=white)
+
+### 🔐 Security & Utilities
+`itsdangerous` • `cryptography` • `blinker`
+
+### ⚙️ Web Utilities
+`Werkzeug` • `Jinja2` • `MarkupSafe` • `Click` • `colorama`
+
+### 🗃️ Database Stack
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)
+`PyMySQL` • `mysql-connector` • `mysqlclient`
+
+### 🔧 System & Dependency Utilities
+`cffi` • `pycparser` • `importlib_metadata` • `zipp`
 > A role-based web app to simplify booking, managing, and tracking doctor appointments with real-time email notifications.
 
 <p align="center">
