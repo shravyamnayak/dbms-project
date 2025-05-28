@@ -1,4 +1,8 @@
 # 🩺 Doctor Appointment System
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![GitHub stars](https://img.shields.io/github/stars/shravyamnayak/dbms-project?style=social)
+![GitHub forks](https://img.shields.io/github/forks/shravyamnayak/dbms-project?style=social)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
 
 <p align="center">
   <img src="https://github.com/shravyamnayak/dbms-project/blob/main/static/banner.png" width="80%" />
