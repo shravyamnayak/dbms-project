@@ -1,6 +1,7 @@
 # 🩺 Doctor Appointment System
 
 > A role-based web app to simplify booking, managing, and tracking doctor appointments with real-time email notifications.
+
 <p align="center">
   <img src="https://github.com/shravyamnayak/dbms-project/blob/main/static/banner.png" width="80%" />
 </p>
