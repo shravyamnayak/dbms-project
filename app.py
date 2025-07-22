@@ -24,7 +24,7 @@ mail = Mail(app)
 # Session security
 app.permanent_session_lifetime = datetime.timedelta(days=1)
 
-# ✅ Jinja Filters
+# Jinja Filters
 @app.template_filter('format_date')
 def format_date(date):
     if date:
