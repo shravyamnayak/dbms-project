@@ -42,7 +42,7 @@ def format_time(time):
         return f"{hours:02d}:{minutes:02d}"
     return ""
 
-# ✅ Utility Functions
+#  Utility Functions
 def get_all_doctors():
     conn = get_db_connection()
     if not conn:
