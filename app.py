@@ -71,7 +71,7 @@ def get_all_patients():
         conn.close()
     return patients
 
-# ✅ Routes
+# Routes
 @app.route("/")
 def index():
     return render_template("index.html")
