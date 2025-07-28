@@ -42,7 +42,7 @@ A full-stack web application built using **Flask (Python)**, **MySQL**, **HTML**
 - **[Python](https://www.python.org/)** - High-level, interpreted programming language known for its simplicity, readability, and vast ecosystem of libraries
 - **[Flask 3.1.0](https://flask.palletsprojects.com/)** – Lightweight web framework for building the backend
 - **[Flask-CORS 5.0.1](https://flask-cors.readthedocs.io/)** – Enables Cross-Origin Resource Sharing (CORS)  
-- **[Gunicorn 21.2.0](https://docs.gunicorn.org/en/stable/)** – WSGI HTTP server used for deployment in production  
+- **[Gunicorn 21.2.0](https://docs.gunicorn.org/en/stable/)** – WSGI HTTP server used for deployment in production (render) 
 
 ---
 
